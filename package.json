@@ -1,0 +1,70 @@
+{
+  "name": "filepreview",
+  "displayName": "FilePreview",
+  "description": "Provides support to preview multiple file formats not supported by the vscode by defaultmultiple file formats ",
+  "version": "0.0.1",
+  "author": {
+    "name": "Dheovani Xavier da Cruz",
+    "email": "dheovani_xavier@outlook.com"
+  },
+  "publisher": "Dheovani",
+  "repository": "https://github.com/Dheovani/FilePreview",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "filepreview.helloWorld",
+        "title": "Hello World"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "filepreviewContainer",
+          "title": "File Preview",
+          "icon": "$(file)"
+        }
+      ]
+    },
+    "views": {
+      "filepreviewContainer": [
+        {
+          "id": "filepreview",
+          "name": "File Preview"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "filepreview",
+        "contents": "No file selected. Please, select a file to show it's preview"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.94.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "eslint": "^9.13.0",
+    "typescript": "^5.6.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}

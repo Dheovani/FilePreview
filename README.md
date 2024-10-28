@@ -19,6 +19,13 @@ These features are always accessible to help you manage and view files with ease
 2. Search for "File Preview".
 3. Click "Install".
 
+## ✅ Supported file types
+
+- Supported text types: 'pdf', 'txt', 'html'
+- Supported image types: 'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'
+- Supported video types: 'mp4', 'webm', 'ogv'
+- Supported audio types: 'mp3', 'ogg', 'wav'
+
 ## 📜 Usage
 
 1. Select any supported file type in your workspace.

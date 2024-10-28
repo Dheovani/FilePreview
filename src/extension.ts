@@ -1,6 +1,35 @@
 import * as vscode from 'vscode';
+import { getPreview } from './preview';
+import { isTypeSupported } from './types';
 
+let panel: vscode.WebviewPanel | undefined;
 let statusBarItem: vscode.StatusBarItem | undefined;
+
+/**
+ * Opens the SVG file viewer
+ */
+function openViewer(filename: string): void
+{	
+	panel?.reveal(vscode.ViewColumn.One);
+
+	if (!panel) {
+		panel = vscode.window.createWebviewPanel(
+			'File Preview',
+			'File Preview',
+			vscode.ViewColumn.One,
+			{ enableScripts: true }
+		);
+
+		// Delete panel on dispose
+		panel.onDidDispose(() => panel = undefined);
+		panel.onDidChangeViewState(() => panel?.dispose());
+	}
+
+	const preview = getPreview(filename, panel);
+	
+	if (preview)
+		panel.webview.html = preview;
+}
 
 /**
  * Displays the extension's status bar item
@@ -29,9 +58,25 @@ function displayStatus(): void
 export function activate(context: vscode.ExtensionContext): void
 {
 	displayStatus();
+
+	// Open preview with mouse's right button
+	const openPreviewMenuCommand = vscode.commands.registerCommand('extension.openFilePreviewMenuItem', (resource) => {
+		if (resource && isTypeSupported(resource.fsPath))
+			openViewer(resource.fsPath);
+	});
+
+	// Open using editor title button
+	const openPreviewOnEditorButton = vscode.commands.registerCommand('extension.openPreviewShortcut', (resource) => {
+		if (resource && isTypeSupported(resource.fsPath))
+			openViewer(resource.fsPath);
+	});
+
+	context.subscriptions.push(openPreviewMenuCommand);
+	context.subscriptions.push(openPreviewOnEditorButton);
 }
 
 export function deactivate(): void
 {
+	panel?.dispose();
 	statusBarItem?.dispose();
 }

@@ -20,8 +20,13 @@
   "contributes": {
     "commands": [
       {
-        "command": "filepreview.helloWorld",
-        "title": "Hello World"
+        "command": "extension.openFilePreviewMenuItem",
+        "title": "Open preview"
+      },
+      {
+        "command": "extension.openPreviewShortcut",
+        "title": "Open preview",
+        "icon": "$(file)"
       }
     ],
     "viewsContainers": {
@@ -46,7 +51,21 @@
         "view": "filepreview",
         "contents": "No file selected. Please, select a file to show it's preview"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "extension.openPreviewShortcut",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "extension.openFilePreviewMenuItem",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
